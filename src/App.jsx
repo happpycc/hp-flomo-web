@@ -18,8 +18,8 @@ export default function App() {
     axios
       .post("http://192.168.1.244:5555/api/memos", fd, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
       .then((res) => {
         console.log(res);
@@ -57,14 +57,14 @@ export default function App() {
   }
   return (
     <div className="flex flex-col h-screen bg-[#2C3333]">
-      <div className="flex flex-col justify-center h-1/4 mx-3 items-center">
-        <NewMemoForm post_memo={post_memo} />
-      </div>
       <hr />
-      <div className="flex flex-col flex-auto items-center overflow-y-scroll h-3/4 m-3 no-scrollbar">
+      <div className="flex flex-col flex-auto items-center overflow-y-scroll h-2/3 m-3 no-scrollbar">
         <MemosContext.Provider value={{ memos, delete_memo, update_memo }}>
           <MemoList />
         </MemosContext.Provider>
+      </div>
+      <div className="flex flex-col justify-center h-1/3 mx-3 items-center">
+        <NewMemoForm post_memo={post_memo} />
       </div>
     </div>
   );

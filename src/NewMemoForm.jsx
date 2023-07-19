@@ -23,7 +23,7 @@ export default function NewMemoForm({ post_memo }) {
   };
   return (
     <>
-      <div className="flex flex-col w-3/5 h-full m-2 border rounded border-[#E9B384] bg-[#2E4F4F]">
+      <div className="flex flex-col w-5/6 h-full m-2 border rounded border-[#E9B384] bg-[#2E4F4F]">
         <textarea
           value={contents}
           onChange={(e) => setContents(e.target.value)}
@@ -36,7 +36,7 @@ export default function NewMemoForm({ post_memo }) {
             onClick={() => {
               inputFile.current.click();
             }}
-            className="flex flex-row items-center border-r px-2"
+            className="flex flex-row items-center border-r px-2 cursor-pointer"
           >
             <span>
               <svg
@@ -86,15 +86,7 @@ export default function NewMemoForm({ post_memo }) {
               </svg>
             </span>
           </div>
-          <div className="flex w-full flex-row justify-start overflow-x-auto no-scrollbar">
-            <div className="border m-1">fsadf</div>
-            <div className="border m-1">fsadf</div>
-            <div className="border m-1">fsadf</div>
-            <div className="border m-1">fsadf</div>
-            <div className="border m-1">fsadf</div>
-            <div className="border m-1">fsadf</div>
-            <div className="border m-1">fsadf</div>
-            <div className="border m-1">fsadf</div>
+          <div className="flex flex-row flex-wrap overflow-auto no-scrollbar justify-start w-full">
             <div className="border m-1">fsadf</div>
             <div className="border m-1">fsadf</div>
             <div className="border m-1">fsadf</div>
