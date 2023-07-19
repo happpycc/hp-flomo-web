@@ -18,20 +18,20 @@ export default function NewMemoForm({ post_memo }) {
       }
     }
     post_memo(fd);
-    setContents("")
-    setFiles([])
+    setContents("");
+    setFiles([]);
   };
   return (
     <>
-      <div className="flex flex-col w-5/6 h-full m-2 border rounded border-[#E9B384] bg-[#2E4F4F]">
+      <div className="flex flex-col w-5/6 h-full m-2 border rounded border-[#E9B384] bg-[#2E4F4F] justify-between">
         <textarea
           value={contents}
           onChange={(e) => setContents(e.target.value)}
-          className="h-3/4 bg-transparent resize-none outline-none m-2 no-scrollbar"
+          className="bg-transparent resize-none outline-none m-2 no-scrollbar h-full"
           placeholder="Write something ..."
         ></textarea>
 
-        <div className="flex flex-row justify-between h-1/4 border-t bg-[#526D82]">
+        <div className="flex flex-row justify-between border-t bg-[#526D82]">
           <div
             onClick={() => {
               inputFile.current.click();
@@ -87,12 +87,7 @@ export default function NewMemoForm({ post_memo }) {
             </span>
           </div>
           <div className="flex flex-row flex-wrap overflow-auto no-scrollbar justify-start w-full">
-            <div className="border m-1">fsadf</div>
-            <div className="border m-1">fsadf</div>
-            <div className="border m-1">fsadf</div>
-            <div className="border m-1">fsadf</div>
-            <div className="border m-1">fsadf</div>
-            <div className="border m-1">fsadf</div>
+            {/* <div className="border m-1 h-4/5"></div> */}
           </div>
           <div className="flex items-center border-l pl-4 mx-2 p-2">
             <input
@@ -100,6 +95,7 @@ export default function NewMemoForm({ post_memo }) {
               ref={inputFile}
               onChange={(e) =>
                 setFiles((oldFiles) => {
+                  console.log([...oldFiles, ...e.target.files]);
                   return [...oldFiles, ...e.target.files];
                 })
               }

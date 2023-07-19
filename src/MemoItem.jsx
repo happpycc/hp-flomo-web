@@ -1,52 +1,56 @@
-import { useContext, useState } from "react";
-import MemosContext from "./MemosContext";
+import { useState } from "react";
 import Files from "./Files";
-import OpButton from "./OpButton";
+import DefaultBtn from "./DefaultBtn";
+import UpdatingBtn from "./UpdatingBtn";
+import { useContext } from "react";
+import MemosContext from "./MemosContext";
 
 export default function MemoItem({ index, memo }) {
+  const [updating, setUpdating] = useState(false);
   const [contents, setContents] = useState(memo.contents);
+  const { update_memo } = useContext(MemosContext);
   const [files, setFiles] = useState(memo.files);
+  function handle_update() {
+    setUpdating(!updating);
+    update_memo(index, contents);
+  }
+  function handle_click(path) {
+    // console.log(e);
+  }
   return (
     <div className="flex flex-col rounded border border-[#E9B384] m-2 w-5/6 p-3 bg-[#7C9D96]">
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between items-center">
         <p className="text-xs text-gray-300">{memo.create_time}</p>
-        <OpButton index={index} />
+        {!updating && (
+          <DefaultBtn
+            index={index}
+            updating={updating}
+            setUpdating={setUpdating}
+          />
+        )}
+        {updating && (
+          <UpdatingBtn
+            handle_update={handle_update}
+            updating={updating}
+            setUpdating={setUpdating}
+          />
+        )}
       </div>
-      {contents && (
-        <div className="">
-          <p className="text-base text-[#EEEEEE]">{contents}</p>
+      {(contents || updating) && (
+        <div>
+          {!updating && <p className="text-base text-[#EEEEEE]">{contents}</p>}
+          {updating && (
+            <textarea
+              className="w-full bg-transparent resize-none border rounded p-2"
+              value={contents}
+              onChange={(e) => setContents(e.target.value)}
+            ></textarea>
+          )}
         </div>
       )}
-      {files.length !== 0 && <Files files={files} />}
-      {/* <div>
-        {!updating && (
-          <>
-            <button onClick={() => delete_memo(index)}>Delete</button>
-            <button onClick={() => setUpdating(!updating)}>Update</button>
-          </>
-        )}
-      </div>
-      <div>
-        {updating && (
-          <div>
-            <button
-              onClick={() => {
-                update_memo(index, contents);
-                setUpdating(!updating);
-              }}
-            >
-              Update
-            </button>
-            <button onClick={() => setUpdating(!updating)}>Cancel</button>
-            <input
-              type="text"
-              value={contents}
-              onChange={(ev) => setContents(ev.target.value)}
-            />
-          </div>
-        )}
-        {!updating && <p>{contents}</p>}
-      </div> */}
+      {files && files.length !== 0 && (
+        <Files files={files} updating={updating} handle_click={handle_click} />
+      )}
     </div>
   );
 }

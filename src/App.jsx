@@ -50,7 +50,7 @@ export default function App() {
         res.status === 200 &&
           setMemos((oldMemos) => {
             const newMemos = [...oldMemos];
-            newMemos[index] = res.data;
+            newMemos[index].contents = newContents;
             return newMemos;
           });
       });
